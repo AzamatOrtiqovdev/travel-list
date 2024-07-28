@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const initialItems = [
   { id: 1, description: "Passports", quantity: 2, packed: false },
   { id: 2, description: "Socks", quantity: 12, packed: false },
@@ -21,25 +23,38 @@ function Logo() {
 }
 
 function Form() {
+  const [description, setDescription] = useState("");
+  const [quantity, setQuantity] = useState(1);
 
   function handleSubmit(e) {
     e.preventDefault();
+
+    const newItem = {description, quantity, packed: false, id: new Date()};
+    console.log(newItem);
+
+    setDescription("");
+    setQuantity(1);
   }
 
   return (
     <form className="add-form" onSubmit={handleSubmit}>
       <h3>What do you need for your 😍 your trip ?</h3>
 
-      <select>
+      <select value={quantity} onChange={(e) => setQuantity(e.target.value)}>
         {/* creating an array out of from number that 1 to 20 */}
-      {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => (
-        <option value={num} key={num}>
-          {num}
-        </option>
-      ))}
+        {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => (
+          <option value={num} key={num}>
+            {num}
+          </option>
+        ))}
       </select>
 
-      <input type="text" placeholder="Item..."/>
+      <input
+        type="text"
+        placeholder="Item..."
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+      />
 
       <button>Add</button>
     </form>
@@ -51,7 +66,7 @@ function PackingList() {
     <div className="list">
       <ul>
         {initialItems.map((item) => (
-          <Item item={item} key={item.id}/>
+          <Item item={item} key={item.id} />
         ))}
       </ul>
     </div>
