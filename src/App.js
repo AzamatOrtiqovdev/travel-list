@@ -31,6 +31,7 @@ function Form() {
       <h3>What do you need for your 😍 your trip ?</h3>
 
       <select>
+        {/* creating an array out of from number that 1 to 20 */}
       {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => (
         <option value={num} key={num}>
           {num}
