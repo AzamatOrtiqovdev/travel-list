@@ -19,6 +19,12 @@ export default function App() {
     );
   }
 
+  function hundleClearList() {
+    const confirmed = window.confirm("Are you sure you want to delete all items ?");
+
+    if(confirmed) setItems([]);
+  }
+
   return (
     <div>
       <Logo />
@@ -27,6 +33,7 @@ export default function App() {
         items={items}
         onDeleteItems={hundleDeleteItems}
         onToggleItems={hundleToggleItems}
+        onClearList={hundleClearList}
       />
       <Stats items={items} />
     </div>
@@ -77,7 +84,7 @@ function Form({ onAddItems }) {
   );
 }
 
-function PackingList({ items, onDeleteItems, onToggleItems }) {
+function PackingList({ items, onDeleteItems, onToggleItems, onClearList }) {
   const [sortBy, setSortBy] = useState("input");
   let sortedItems;
 
@@ -112,6 +119,8 @@ function PackingList({ items, onDeleteItems, onToggleItems }) {
           <option value="description">Sort by description</option>
           <option value="packed">Sort by packed status</option>
         </select>
+
+        <button onClick={onClearList}>Clear List</button>
       </div>
     </div>
   );
